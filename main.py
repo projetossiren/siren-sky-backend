@@ -22,11 +22,15 @@ FILENAME = "trash_mbari_09072023_640imgsz_50epochs_yolov8.pt"
 async def receber_imagem(image: UploadFile = File(...)):
     conteudo = await image.read()
     model = load_model(REPO_ID, FILENAME)
-    print(f"Modelo carregado: {model.model_name} com {len(model.names)} classes.")
     converted_image = transform_image(conteudo)
-    print(f"Imagem recebida: {image.filename}, tamanho: {converted_image.size}, modo: {converted_image.mode}")
     results = predict(model, converted_image)
 
     return {
         "results": results.to_dict(orient="records")
+    }
+
+@app.post("/teste")
+async def teste():
+    return {
+        "message": "API funcionando corretamente!"
     }

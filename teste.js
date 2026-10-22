@@ -9,6 +9,7 @@ async function enviarImagem(arquivo) {
     });
 
     const resultado = await resposta.json();
+    console.log(resultado);
 
     if (!resposta.ok) {
         console.error(resultado);
