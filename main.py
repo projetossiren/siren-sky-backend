@@ -9,7 +9,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -18,8 +18,8 @@ app.add_middleware(
 REPO_ID = "FathomNet/trash-detector"
 FILENAME = "trash_mbari_09072023_640imgsz_50epochs_yolov8.pt"
 
-@app.post("/image")
-async def receber_imagem(image: UploadFile = File(...)):
+@app.post("/verificar_imagem")
+async def verificar_imagem(image: UploadFile = File(...)):
     conteudo = await image.read()
     model = load_model(REPO_ID, FILENAME)
     converted_image = transform_image(conteudo)
